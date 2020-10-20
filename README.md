@@ -1,19 +1,31 @@
 # Kubernetes Training 5
-Oct 2020
+October 2020
 
-So far, this repo just contains a simple express app to be used in a deployment. Really nothing special here...
+The goal of this training is to demonstrate how to configure and deploy an application into Kubernetes in EKS.
 
-# Training Agenda
+By the end of this training, everyone should have a general understanding of:
+- GitOps
+- Helm
 
-1. Quick Overview of [Express App](./src/app.js)
+## Training Overview
+
+Training Agenda:
+1. A *very* quick overview of the [demo app](./src/app.js)
 1. A practical example
-1. GitOps Intro
-1. Helm Intro
-1. First look at [eks-gitops](https://github.com/byubroadcasting/eks-gitops)
 
-## Quick Overview of the express app
+Topics To Cover:
+- The [eks-gitops](https://github.com/byubroadcasting/eks-gitops) repo
+- GitOps
+- Helm
+- More Kubernetes concepts
+  - Operators
+  - Custom Resource Definitions (CRD)
+  - Annotations
+  - CronJobs
 
-Literally want to spend less than 60 seconds on this. This repo holds the app we'll be deploying to the dev cluster. There's really nothing special here.
+## Quick Overview of the demo app
+
+This repo holds the app we'll be deploying to Kubernetes. There's really nothing special here.
 
 ```bash
 $ docker build --tag demo .
@@ -22,7 +34,7 @@ $ docker run --itd --name demo --rm --publish 8080:8080 demo:latest
 
 ## A Practical Example
 
-I'll walk through a practical example where we'll deploy a web app to our dev cluster. I prefer to learn by doing, so rather than read through the following material, we'll reference the following sections as we come across new concepts in the example.
+I'll walk through a practical example where we deploy the demo app to EKS. I prefer learning by doing, so rather than read through the following material, we'll use it as a reference as we come across new concepts in the example we'll be working.
 
 ## GitOps Intro
 
@@ -102,3 +114,4 @@ There are other top-level folders in the project, but these are the most importa
 A [*HelmRelease*](https://docs.fluxcd.io/projects/helm-operator/en/1.0.0-rc9/references/helmrelease-custom-resource.html) is a CRD (*Custom Resource Definition*). In Kubernetes, A [Custom Resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) is "an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation".
 
 **A side note on annotations**: The HelmRelease objects in [eks-gitops](https://github.com/byubroadcasting/eks-gitops) has an `annotations` block in the metadata section. Annotations are used pretty widely in Kubernetes and act like decorators in OO. Annotations "attach arbitrary non-identifying metadata to objects". Annotations can be used to create a desired side-effect.
+
