@@ -45,6 +45,25 @@ See [Why should I use GitOps?](https://www.gitops.tech/#why-should-i-use-gitops)
 
 ## Helm Intro
 
+[Helm](https://helm.sh/) is the "package manager for Kubernetes". Why does Kubernetes need a package manager, you might ask? A good example is installing flux. Rather than writing a bunch of manifest files to declare a deployment, services, service accounts, roles, cluster roles, role bindings, cluster role bindings, etc., we can simply use helm to install the flux operator.
+
+```bash
+$ helm repo add fluxcd https://charts.fluxcd.io
+"fluxcd" has been added to your repositories
+$ helm install flux fluxcd/flux \
+  --set git.url="git@$GIT_HOST:$GIT_USER/$GIT_REPO" \
+  --set git.path="k8s/common\,k8s/$CLUSTER_NAME" \
+  --namespace flux
+```
+
+### Charts
+
+With Helm, you package your manifest files together into a [Chart](https://helm.sh/docs/topics/charts/). A Chart is simply a collection of files laid out in a specific directory structure. Click the link to see more.
+
+### Templates
+
+Helm comes with a templating language, making it easy to create re-usable charts. See [Chart Template Guide: Getting Started](https://helm.sh/docs/chart_template_guide/getting_started/).
+
 ## First Look at [eks-gitops](https://github.com/byubroadcasting/eks-gitops)
 
 There are other top-level folders in the project, but these are the most important:
@@ -82,3 +101,4 @@ There are other top-level folders in the project, but these are the most importa
 
 A [*HelmRelease*](https://docs.fluxcd.io/projects/helm-operator/en/1.0.0-rc9/references/helmrelease-custom-resource.html) is a CRD (*Custom Resource Definition*). In Kubernetes, A [Custom Resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) is "an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation".
 
+**A side note on annotations**: The HelmRelease objects in [eks-gitops](https://github.com/byubroadcasting/eks-gitops) has an `annotations` block in the metadata section. Annotations are used pretty widely in Kubernetes and act like decorators in OO. Annotations "attach arbitrary non-identifying metadata to objects". Annotations can be used to create a desired side-effect.
